@@ -4,13 +4,13 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 
 from dlcf.users.forms import UserChangeForm, UserCreationForm
+from dlcf.users.models import AnonymousMessage
 
 User = get_user_model()
 
 
 @admin.register(User)
 class UserAdmin(auth_admin.UserAdmin):
-
     form = UserChangeForm
     add_form = UserCreationForm
     fieldsets = (
@@ -32,3 +32,6 @@ class UserAdmin(auth_admin.UserAdmin):
     )
     list_display = ["username", "name", "is_superuser"]
     search_fields = ["name"]
+
+
+admin.site.register(AnonymousMessage)
