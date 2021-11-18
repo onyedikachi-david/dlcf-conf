@@ -5,7 +5,7 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
-from dlcf.users.views import request_create_view, request_successful_submit
+from dlcf.users.views import request_create_view, request_successful_submit, prayer_request_list_view
 
 
 urlpatterns = [
@@ -21,6 +21,7 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     path("request_form/", view=request_create_view, name="request-form"),
     path("success/", view=request_successful_submit, name="request_form_sub_success"),
+    path("prayer-requests-list", view=prayer_request_list_view, name="prayer_request_list_view")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

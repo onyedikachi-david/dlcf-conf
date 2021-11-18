@@ -3,11 +3,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView, RedirectView, UpdateView, CreateView
+from django.views.generic import DetailView, RedirectView, UpdateView, CreateView, ListView
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
 from dlcf.users.forms import RequestCreateForm
+from dlcf.users.models import AnonymousMessage
 
 User = get_user_model()
 
@@ -65,3 +66,15 @@ request_create_view = RequestCreateView.as_view()
 
 def request_successful_submit(request):
     return render(request, "pages/success.html")
+
+
+class PrayerRequestListView(ListView):
+    model = AnonymousMessage
+    template_name = "pages/prayer-request-list.html"
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(PrayerRequestListView, self).get_queryset(*args, **kwargs)
+        qs = qs.order_by("-id")
+        return qs
+
+prayer_request_list_view = PrayerRequestListView.as_view()
