@@ -31,4 +31,4 @@ class AnonymousMessage(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'({self.id}) ===> Prayer request: {self.request}'
+        return f'({self.id}) {self.request}'
